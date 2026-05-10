@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 import streamlit as st
+from langchain_core import PromptTemplate
 
 load_dotenv()
 
@@ -16,6 +17,11 @@ length_input = st.slider("Select the desired length of the answer:", 100, 1000, 
 
 user_input = st.text_input("Enter your research question:")
 
+#template
+template = prompt = PromptTemplate(
+    input_variables=["paper", "style", "length", "question"],
+    template="Based on the research paper '{paper}', provide an answer to the question '{question}' in a {style} writing style, with a length of approximately {length} words."
+)
 if st.button('Get Answer'):
     result = model.invoke(user_input)
     st.write(result.content)
