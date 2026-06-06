@@ -1,6 +1,5 @@
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from langchain_huggingface import HuggingFaceEndpoint
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableParallel
 from langchain_core.output_parsers import StrOutputParser
@@ -8,7 +7,7 @@ from langchain_core.output_parsers import StrOutputParser
 load_dotenv()
 
 model1 = ChatOpenAI(model='gpt-4o-mini')
-model2 = HuggingFaceEndpoint(model='google/flan-t5-xxl')
+model2 = ChatOpenAI(model='gpt-4o-mini')
 
 prompt1 =  PromptTemplate(
     template='write a detailed report on {topic}',
@@ -43,3 +42,4 @@ result =chain.invoke({'topic': 'football'})
 
 print(result)
 
+chain.get_graph().print_ascii() 
