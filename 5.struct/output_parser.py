@@ -1,37 +1,25 @@
-from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 
-load_dotenv()   
+load_dotenv()
 
-llm = HuggingFaceEndpoint(
-    repo-id="Tinayu/llama-2-7b-chat-hf",
-    task="text-generation",
+model = ChatOpenAI(model='gpt-4o-mini')
 
-)
-
-model = ChatHuggingFace(llm=llm)
-
-template = PromptTemplate(
-    template = 'write a detailed report on {topic}',
+template1 = PromptTemplate(
+    template='write a detailed report on {topic}',
     input_variables=['topic']
 )
 
-template = PromptTemplate(
-    template = 'write a 5 line summary report on {text}',
+template2 = PromptTemplate(
+    template='write a 5 line summary on {text}',
     input_variables=['text']
 )
 
-prompt1 = template.invoke({'topic': 'black hole'})
+prompt1 = template1.invoke({'topic': 'black hole'})
+result = model.invoke(prompt1)
 
-result = model.invoke(prompt1)  
+prompt2 = template2.invoke({'text': result.content})
+result1 = model.invoke(prompt2)
 
-prompt2 = template.invoke({'text': result.content})
-
-
- result1 =model.invoke(prompt2)
-
-print(result1.content )
-
-
-
+print(result1.content)

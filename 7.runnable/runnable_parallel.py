@@ -29,6 +29,7 @@ parallel_chain = RunnableParallel({
 })
 
 result =parallel_chain.invoke({'topic': 'football'})
-print(result)
+print(result['tweeter'])
+print(result['facebook'])
 
 parallel_chain.get_graph().print_ascii()
